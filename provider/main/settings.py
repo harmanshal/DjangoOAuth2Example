@@ -29,11 +29,7 @@ INSTALLED_APPS = (
     'drf_spectacular_sidecar',
 
     'oauth2_provider',
-    'social_django',
-    'drf_social_oauth2',
 )
-# Application definition
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -98,10 +94,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_URL = '/admin/login/'
 
-AUTHENTICATION_BACKENDS = (
-    'drf_social_oauth2.backends.DjangoOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-)
+OAUTH2_PROVIDER = {
+    'SCOPES': {
+        'read': 'Read scope',
+        'write': 'Write scope',
+        'test': 'test api',
+        'introspection': 'Introspect token Scope',
+    },
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -118,13 +118,7 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
     'COMPONENT_SPLIT_REQUEST': True,
     'SCHEMA_PATH_PREFIX': '/api/',
-    # 'SWAGGER_UI_DIST': 'SIDECAR',  # shorthand to use the sidecar instead
-    # 'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
-    # 'REDOC_DIST': 'SIDECAR',
 }
-
-# Internationalization
-# https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 LANGUAGE_CODE = 'ru'
 
@@ -134,13 +128,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
-
 STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
