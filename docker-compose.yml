@@ -5,11 +5,19 @@ services:
   provider:
     container_name: oauth-example-provider
     build: ./provider
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn main.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - ./provider:/usr/src/provider
+    expose:
+      - 8000
+
+  provider-nginx:
+    container_name: oauth-example-provider-nginx
+    build: ./provider/nginx
     ports:
       - "8000:8000"
+    depends_on:
+      - provider
 
   client:
     container_name: oauth-example-client

@@ -21,7 +21,7 @@ INSTALLED_APPS = [
 ]
 
 OAUTH2_PROVIDER = {
-    'RESOURCE_SERVER_INTROSPECTION_URL': 'http://127.0.0.1:8000/oauth/introspect/',
+    'RESOURCE_SERVER_INTROSPECTION_URL': 'http://provider-nginx:8000/oauth/introspect/',
     'RESOURCE_SERVER_INTROSPECTION_CREDENTIALS': (
         os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET')
     )
