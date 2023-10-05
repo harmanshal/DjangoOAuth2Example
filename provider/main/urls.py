@@ -3,7 +3,7 @@ from django.urls import path, include, re_path
 from drf_spectacular.views import SpectacularSwaggerView, SpectacularAPIView
 from rest_framework import routers
 
-from main.views import UserViewSet
+from main.views import UserViewSet, profile
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -12,6 +12,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('oauth/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    path('profile/', profile)
 ]
 
 urlpatterns += [

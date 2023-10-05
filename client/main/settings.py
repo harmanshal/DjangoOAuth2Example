@@ -16,15 +16,34 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'oauth2_provider',
+    'django.contrib.sites',
+
     'rest_framework',
+
+    'oauth2_provider',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'customprovider',
 ]
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+)
+
+OAUTH_SERVER_BASEURL = 'http://127.0.0.1:8000'
 
 OAUTH2_PROVIDER = {
     'RESOURCE_SERVER_INTROSPECTION_URL': 'http://provider-nginx:8000/oauth/introspect/',
+
+    # 'RESOURCE_SERVER_INTROSPECTION_URL': 'http:/127.0.0.1:8000/oauth/introspect/',
     'RESOURCE_SERVER_INTROSPECTION_CREDENTIALS': (
         os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET')
-    )
+    ),
 }
 
 REST_FRAMEWORK = {
@@ -34,12 +53,12 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    'allauth.account.middleware.AccountMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'oauth2_provider.middleware.OAuth2TokenMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -49,7 +68,7 @@ ROOT_URLCONF = 'main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
