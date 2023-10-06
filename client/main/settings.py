@@ -16,17 +16,35 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'oauth2_provider',
+
+    # Сторонние пакеты
     'rest_framework',
     'drf_spectacular',
+
+    # OAuth
+    'oauth2_provider',
+    'social_django',
 ]
+
+LOGIN_URL = 'social/login/django/'
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 OAUTH2_PROVIDER = {
     'RESOURCE_SERVER_INTROSPECTION_URL': 'http://provider-nginx:8000/oauth/introspect/',
+    # 'RESOURCE_SERVER_INTROSPECTION_URL': 'http://127.0.0.1:8000/oauth/introspect/',
     'RESOURCE_SERVER_INTROSPECTION_CREDENTIALS': (
         os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET')
     )
 }
+
+AUTHENTICATION_BACKENDS = (
+    "main.provider.DjangoOAuthToolkitBackend",
+    "django.contrib.auth.backends.ModelBackend"
+)
+
+KEY = '4cZzWl410UKEZBBQh3MUPBF42Mz4YoyI4y5sh3bb'
+SECRET = 'pbkdf2_sha256$390000$NMflaLftq9XXHFk8VpCB40$GxNAHYFHnW8eVOyx3Vf41Rot4QkFqbgnn7YBjc9w1Bg='
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -69,7 +87,7 @@ ROOT_URLCONF = 'main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,6 +95,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },

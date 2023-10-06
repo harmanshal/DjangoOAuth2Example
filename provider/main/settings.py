@@ -98,6 +98,7 @@ OAUTH2_PROVIDER = {
         'test': 'test api',
         'introspection': 'Introspect token Scope',
     },
+    'PKCE_REQUIRED': False,
 }
 
 REST_FRAMEWORK = {

@@ -3,14 +3,16 @@ from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework import routers
 
-from main.views import UserViewSet
+from .views import UserViewSet, index
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 
 urlpatterns = [
+    path('', index),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('social/', include('social_django.urls'), name='social')
 ]
 
 urlpatterns += [
