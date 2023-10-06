@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'oauth2_provider',
     'rest_framework',
+    'drf_spectacular',
 ]
 
 OAUTH2_PROVIDER = {
@@ -30,7 +31,26 @@ OAUTH2_PROVIDER = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-    )
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'OAuth 2.0 Client API',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'COMPONENT_SPLIT_REQUEST': True,
+    'SCHEMA_PATH_PREFIX': '/api/',
+
+    # Oauth2 related settings. used for example by django-oauth2-toolkit.
+    # https://spec.openapis.org/oas/v3.0.3#oauthFlowsObject
+    'OAUTH2_FLOWS': [
+        'password'
+    ],
+    'OAUTH2_AUTHORIZATION_URL': 'http://127.0.0.1:8000/oauth/authorize/',
+    'OAUTH2_TOKEN_URL': 'http://127.0.0.1:8000/oauth/token/',
+    'OAUTH2_REFRESH_URL': None,
+    'OAUTH2_SCOPES': None,
 }
 
 MIDDLEWARE = [

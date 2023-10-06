@@ -25,9 +25,6 @@ INSTALLED_APPS = (
     'rest_framework',
     'corsheaders',
 
-    'drf_spectacular',
-    'drf_spectacular_sidecar',
-
     'oauth2_provider',
 )
 
@@ -109,15 +106,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     ],
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-}
-
-SPECTACULAR_SETTINGS = {
-    'TITLE': 'OAuth 2.0 Provider API',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
-    'COMPONENT_SPLIT_REQUEST': True,
-    'SCHEMA_PATH_PREFIX': '/api/',
 }
 
 LANGUAGE_CODE = 'ru'
@@ -133,3 +121,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000']
