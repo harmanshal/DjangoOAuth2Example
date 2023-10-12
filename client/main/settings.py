@@ -32,7 +32,6 @@ SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 OAUTH2_PROVIDER = {
     'RESOURCE_SERVER_INTROSPECTION_URL': 'http://provider-nginx:8000/oauth/introspect/',
-    # 'RESOURCE_SERVER_INTROSPECTION_URL': 'http://127.0.0.1:8000/oauth/introspect/',
     'RESOURCE_SERVER_INTROSPECTION_CREDENTIALS': (
         os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET')
     )
@@ -43,10 +42,15 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend"
 )
 
-# Проблемы со спец символами
-KEY = 'self'
-SECRET = 'self'
-# SECRET = 'pbkdf2_sha256$390000$NMflaLftq9XXHFk8VpCB40$GxNAHYFHnW8eVOyx3Vf41Rot4QkFqbgnn7YBjc9w1Bg='
+
+OAUTH2_BACKEND = {
+    # todo: Проблемы со спец символами
+    'CLIENT_ID': 'self',
+    'CLIENT_SECRET': 'self',
+    'AUTHORIZATION_URL': 'http://127.0.0.1:8000/oauth/authorize/',
+    'ACCESS_TOKEN_URL': 'http://provider-nginx:8000/oauth/token/',
+    'USER_DETAILS_URL': 'http://provider-nginx:8000/api/users/me/'
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -150,7 +154,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_ROOT = BASE_DIR.parent / 'static/'
 STATIC_URL = 'static/'
 
 # Default primary key field type
