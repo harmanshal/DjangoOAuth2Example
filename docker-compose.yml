@@ -8,12 +8,15 @@ services:
     command: gunicorn main.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - ./provider:/usr/src/provider
+      - static_volume:/usr/src/static
     expose:
       - 8000
 
   provider-nginx:
     container_name: oauth-example-provider-nginx
     build: ./provider/nginx
+    volumes:
+      - static_volume:/usr/src/static
     ports:
       - "8000:8000"
     depends_on:
@@ -27,7 +30,11 @@ services:
     command: python manage.py runserver 0.0.0.0:80
     volumes:
       - ./client:/usr/src/client
+      - static_volume:/usr/src/static
     ports:
       - "80:80"
     depends_on:
       - provider
+
+volumes:
+  static_volume:

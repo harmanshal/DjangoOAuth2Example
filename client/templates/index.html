@@ -2,10 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Главная</title>
+    <title>Клиент OAuth</title>
 </head>
 <body>
-<h1>Главная</h1>
-<p>{{ user.username }}</p>
+<h1>Клиент OAuth</h1>
+<hr>
+<h3>Данные пользователя</h3>
+<p>Логин: {{ user.username }}</p>
+<p>Имя: {{ user.first_name }}</p>
+<p>Фамилия: {{ user.last_name }}</p>
+<hr>
+<a href="{% url 'docs' %}">API</a>
+<a href="{% url 'admin:index' %}">admin</a>
 </body>
 </html>

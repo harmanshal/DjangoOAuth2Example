@@ -11,7 +11,7 @@ router.register(r'users', UserViewSet)
 urlpatterns = [
     path('', index),
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path('api/', include(router.urls), name='api'),
     path('social/', include('social_django.urls'), name='social')
 ]
 
