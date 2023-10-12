@@ -24,6 +24,7 @@ INSTALLED_APPS = (
 
     'rest_framework',
     'corsheaders',
+    'djoser',
 
     'oauth2_provider',
 )
@@ -52,8 +53,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -109,6 +108,13 @@ REST_FRAMEWORK = {
     ],
 }
 
+DJOSER = {
+    'SERIALIZERS': {
+        'user': 'main.serializers.UserSerializer',
+        'current_user': 'main.serializers.UserSerializer',
+    }
+}
+
 LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
@@ -118,6 +124,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

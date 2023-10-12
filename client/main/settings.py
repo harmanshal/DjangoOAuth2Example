@@ -39,12 +39,14 @@ OAUTH2_PROVIDER = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    "main.provider.DjangoOAuthToolkitBackend",
+    "main.oauth_backend.DjangoOAuthToolkitBackend",
     "django.contrib.auth.backends.ModelBackend"
 )
 
-KEY = '4cZzWl410UKEZBBQh3MUPBF42Mz4YoyI4y5sh3bb'
-SECRET = 'pbkdf2_sha256$390000$NMflaLftq9XXHFk8VpCB40$GxNAHYFHnW8eVOyx3Vf41Rot4QkFqbgnn7YBjc9w1Bg='
+# Проблемы со спец символами
+KEY = 'self'
+SECRET = 'self'
+# SECRET = 'pbkdf2_sha256$390000$NMflaLftq9XXHFk8VpCB40$GxNAHYFHnW8eVOyx3Vf41Rot4QkFqbgnn7YBjc9w1Bg='
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -52,6 +54,8 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
+
+SESSION_COOKIE_NAME = 'clientsessionid'
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'OAuth 2.0 Client API',
@@ -146,6 +150,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+STATIC_ROOT = BASE_DIR.parent / 'static/'
 STATIC_URL = 'static/'
 
 # Default primary key field type
