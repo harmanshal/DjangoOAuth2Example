@@ -16,5 +16,8 @@
 {% endif %}
 <a href="{% url 'docs' %}">API</a>
 <a href="{% url 'admin:index' %}">admin</a>
+{% if user.is_authenticated %}
+    <a href="{% url 'oauth2_provider:list' %}">Приложения</a>
+{% endif %}
 </body>
 </html>
