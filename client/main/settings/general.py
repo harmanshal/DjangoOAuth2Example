@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = 'django-insecure-gr5(f&_g8bi6$y355u(c6p#ys83!t4*^45+i(jfa($83b=ljng'
 
@@ -25,32 +25,6 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'social_django',
 ]
-
-LOGIN_URL = 'social/login/django/'
-
-SOCIAL_AUTH_URL_NAMESPACE = 'social'
-
-OAUTH2_PROVIDER = {
-    'RESOURCE_SERVER_INTROSPECTION_URL': 'http://provider-nginx:8000/oauth/introspect/',
-    'RESOURCE_SERVER_INTROSPECTION_CREDENTIALS': (
-        os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET')
-    )
-}
-
-AUTHENTICATION_BACKENDS = (
-    "main.oauth_backend.DjangoOAuthToolkitBackend",
-    "django.contrib.auth.backends.ModelBackend"
-)
-
-
-OAUTH2_BACKEND = {
-    # todo: Проблемы со спец символами
-    'CLIENT_ID': 'self',
-    'CLIENT_SECRET': 'self',
-    'AUTHORIZATION_URL': 'http://127.0.0.1:8000/oauth/authorize/',
-    'ACCESS_TOKEN_URL': 'http://provider-nginx:8000/oauth/token/',
-    'USER_DETAILS_URL': 'http://provider-nginx:8000/api/users/me/'
-}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -125,20 +99,6 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/

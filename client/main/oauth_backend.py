@@ -23,10 +23,11 @@ class DjangoOAuthToolkitBackend(BaseOAuth2):
         return user_details
 
     def get_key_and_secret(self):
-        """Return tuple with Consumer Key and Consumer Secret for current
-        service provider. Must return (key, secret), order *must* be respected.
-        """
         return settings.OAUTH2_BACKEND['CLIENT_ID'], settings.OAUTH2_BACKEND['CLIENT_SECRET']
+
+    # todo: Нужно будет получать uid
+    def get_user_id(self, details, response):
+        return details['id']
 
 
 
